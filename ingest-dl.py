@@ -1,4 +1,5 @@
 # Databricks notebook source
+# DBTITLE 1,Python: Auto Loader to Delta Lake
 ##### Config: DB Auto Loader to ingest data to Delta Lake #####
 # -------------------------------------------------------- #
 
@@ -26,7 +27,6 @@ dbutils.fs.rm(checkpoint_path, True)
   .select("*", input_file_name().alias("source_file"), current_timestamp().alias("processing_time"))
   .writeStream
   .option("checkpointLocation", checkpoint_path)
-  .trigger(availableNow=True)
   .toTable(table_name))
 
 # PMP: What are pros/cons of using JSON vs. CSV? 
